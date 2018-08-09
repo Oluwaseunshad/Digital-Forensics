@@ -36,7 +36,7 @@ Done! You can now use exiftool [1]
 
 Problems encountered during installation: None
 
-References</br>
+<b>References</b></br>
 	•	http://macappstore.org/
 
 
