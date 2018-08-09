@@ -1,36 +1,36 @@
 # Digital-Forensics
 
 Installing Autopsy on Mac
-	•	Press Command+Space and type Terminal and press enter/return key.
-	•	Run in Terminal app: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
-and press enter/return key.
-	•	Run: brew install autopsy
+</br>
+	•	Press Command+Space and type Terminal and press enter/return key.</br>
+	•	Run in Terminal app: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null</br> 
+	and press enter/return key.</br>
+	•	Run: brew install autopsy</br>
+</br>
+Done! You can now use autopsy [1]</br>
 
-Done! You can now use autopsy [1]
+Problems encountered during installation: None</br>
 
-Problems encountered during installation: None
+Mounting a forensic image</br>
+Problems encountered during image mounting:</br> 
+I tried using the following commands:</br> 
+	•	sudo mount -t ntfs-3g -o loop,ro,noexec,offset=32256 imageName.dd</br>
+	•	mmls out.dd</br>
+But it wasn’t compatible with macOS</br>
 
-Mounting a forensic image
-Problems encountered during image mounting: 
-I tried using the following commands: 
-	•	sudo mount -t ntfs-3g -o loop,ro,noexec,offset=32256 imageName.dd
-	•	mmls out.dd
-But it wasn’t compatible with macOS
-
-Solution:
-Run the following command
-	•	hdiutil attach -imagekey diskimage-class=CRawDiskImage -nomount imageName.dd
-You will get an output indicating the name of the disk being mounted
-	•	hdiutil mount DiskNameBeingMounted 
+<b>Solution:</b>
+</br>Run the following command</br>
+	•	hdiutil attach -imagekey diskimage-class=CRawDiskImage -nomount imageName.dd</br>
+You will get an output indicating the name of the disk being mounted</br>
+	•	hdiutil mount DiskNameBeingMounted</br> 
 e.g hdiutil mount /dev/disk2
 
-Installing exiftool on Mac
-	•	Press Command+Space and type Terminal and press enter/return key.
-	•	Run in Terminal app:
-$ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null
-and press enter/return key.
-	•	Run:
-brew install exiftool
+<b>Installing exiftool on Mac<b></br>
+	•	Press Command+Space and type Terminal and press enter/return key.</br>
+	•	Run in Terminal app:</br>
+$ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null</br>
+and press enter/return key.</br>
+	•	Run: brew install exiftool</br>
 
 Done! You can now use exiftool [1]
 
