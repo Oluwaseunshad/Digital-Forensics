@@ -1,6 +1,6 @@
 # Digital-Forensics
 
-Installing Autopsy on Mac
+<b>Installing Autopsy on Mac</b>
 </br>
 	•	Press Command+Space and type Terminal and press enter/return key.</br>
 	•	Run in Terminal app: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null</br> 
@@ -11,7 +11,7 @@ Done! You can now use autopsy [1]</br>
 
 Problems encountered during installation: None</br>
 
-Mounting a forensic image</br>
+<b>Mounting a forensic image</b></br>
 Problems encountered during image mounting:</br> 
 I tried using the following commands:</br> 
 	•	sudo mount -t ntfs-3g -o loop,ro,noexec,offset=32256 imageName.dd</br>
