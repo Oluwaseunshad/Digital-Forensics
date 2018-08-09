@@ -25,7 +25,7 @@ You will get an output indicating the name of the disk being mounted</br>
 	•	hdiutil mount DiskNameBeingMounted</br> 
 e.g hdiutil mount /dev/disk2
 
-<b>Installing exiftool on Mac<b></br>
+<b>Installing exiftool on Mac</b></br>
 	•	Press Command+Space and type Terminal and press enter/return key.</br>
 	•	Run in Terminal app:</br>
 $ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null</br>
