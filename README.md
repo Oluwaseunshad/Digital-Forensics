@@ -139,7 +139,7 @@ Oluwaseuns-MacBook-Air:~ oluwaseunshad$ sudo dd if=/dev/disk3s2 of=/Volumes/SHAD
 </br>
 </br>
 
-<b>Commands to copy Kali Linux to USB drive and make it bootable from the USB drive</b></br>
+<b>Commands to make a bootable Kali Linux USB drive</b></br>
 
 Oluwaseuns-Air:~ oluwaseunshad$ diskutil list</br>
 /dev/disk0 (internal, physical):</br>
