@@ -1,4 +1,4 @@
-1) imageinfo
+1) imageinfo - Display memory image metadata
 
 @kali:~# volatility -f /media/root/SHAD/memdump.mem imageinfo
 Volatility Foundation Volatility Framework 2.6
@@ -19,7 +19,7 @@ INFO    : volatility.debug    : Determining profile based on KDBG search...
            Image date and time : 2018-08-20 08:34:36 UTC+0000
      Image local date and time : 2018-08-20 04:34:36 -0400
      
-2) pslist
+2) pslist - High level view of running processes
 
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 pslist
 Volatility Foundation Volatility Framework 2.6
@@ -247,7 +247,7 @@ v???HPCommRe      13324    244 19...6        0 ------      0 6236-12-31 04:23:08
 0xffffad0e772fd578 pU?t???reader_s      12420    304 19...0        0 ------      0 4409-10-27 08:20:09 UTC+0000
 
 
-3) psscan
+3) psscan - Scan memory for EPROCESS blocks
 
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 psscan
 Volatility Foundation Volatility Framework 2.6
@@ -258,17 +258,17 @@ Offset(P)          Name                PID   PPID PDB                Time create
 0x0000d4075e84adc6                       0 48...4 0x1d88fffffff00000                              -                              -
 0x0000d4075f34adce                  42...6 73...9 0x2d90fffffff00000                              -                               
 
-4) cmdscan
+4) cmdscan - - Scan for COMMAND_HISTORY buffers
 
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 cmdscan
 Volatility Foundation Volatility Framework 2.6
 
-5) consoles
+5) consoles - Scan for CONSOLE_INFORMATION output
 
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 consoles
 Volatility Foundation Volatility Framework 2.6
 
-6) privs
+6) privs - Display process privileges
 
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 privs
 Volatility Foundation Volatility Framework 2.6
@@ -7449,7 +7449,7 @@ v???HPCommRe     35 SeCreateSymbolicLinkPrivilege                               
    12420 pU?t???reader_s     34 SeTimeZonePrivilege                                           Adjust the time zone of the computer's internal clock
    12420 pU?t???reader_s     35 SeCreateSymbolicLinkPrivilege                                 Required to create a symbolic link
 
-7) envars
+7) envars - Display process environment variables
 
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 envars
 Volatility Foundation Volatility Framework 2.6
@@ -7461,7 +7461,7 @@ Volatility Foundation Volatility Framework 2.6
 Pid      Process              Block              Variable                       Value
 -------- -------------------- ------------------ ------------------------------ -----
 
-8) procdump
+8) procdump - Dump a process to an executable file sample
 
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 procdump -D /media/root/SHAD/dump
 Volatility Foundation Volatility Framework 2.6
@@ -7683,7 +7683,7 @@ Process(V)         ImageBase          Name                 Result
 0xffffad0e772fd578 ------------------                      Error: Cannot acquire process AS
 
 
-9) modscan
+9) modscan - Pool scanner for kernel modules
 
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 modscan
 Volatility Foundation Volatility Framework 2.6
@@ -7958,7 +7958,7 @@ Offset(P)          Name                 Base                             Size Fi
 0x0000f80187500141                      0x001bb057e8d23308         0x48cccccc 
 0x0000f8018793892c                      0x008883c748010000         0x5c8b481e 
 
-10) modules
+10) modules - Print list of loaded modules
 
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 modules
 Volatility Foundation Volatility Framework 2.6
@@ -8168,7 +8168,7 @@ Offset(V)          Name                 Base                             Size Fi
 0xffffad0e75b7f8d0 ad_driver.sys        0xfffff80185dd0000             0x9000 \??\C:\Users\oluwa\AppData\Local\Temp\ad_driver.sys
 0xffffad0e75a3f010 MSKSSRV.sys          0xfffff80d7d960000            0x10000 \SystemRoot\System32\drivers\MSKSSRV.sys
 
-11) filescan
+11) filescan - Pool scanner for file objects
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 filescan
 Volatility Foundation Volatility Framework 2.6
 Offset(P)            #Ptr   #Hnd Access Name
@@ -8180,7 +8180,7 @@ root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 conne
 Volatility Foundation Volatility Framework 2.6
 ERROR   : volatility.debug    : This command does not support the profile Win10x64
 
-13) netscan
+13) netscan - Scan a Vista (or later) image for connections and sockets
 
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 netscan
 Volatility Foundation Volatility Framework 2.6
