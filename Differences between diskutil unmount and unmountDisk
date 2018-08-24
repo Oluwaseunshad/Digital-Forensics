@@ -1,0 +1,14 @@
+From man diskutil:
+ unmount | umount [force] device
+     Unmount a single volume.  Force will force-unmount the volume (less kind to any open files; see also umount (8)).
+    unmountDisk | umountDisk [force] device
+     Unmount an entire disk (all volumes).  Force will force-unmount the volumes (less kind to any open files; see also umount (8)).  You should specify a whole disk, but all volumes of the whole disk are attempted to be unmounted even if you specify a partition.
+So diskutil unmount just ejects a single volume/partition, diskutil unmountDisk the whole disk (including all volumes/partitions).
+
+
+To enter Recovery mode, Press keys Command + R immediately after restarting the system
+When booted to OS X Recovery the root of the Macintosh HD is not /, it's:  /Volumes/Macintosh HD/
+To use dd in Terminal, use:
+	"/Volumes/Macintosh HD/bin/dd”
+ 
+When booting into the Recovery Partition, the Macintosh HD does get mounted automatically and should be listed in /Volumes. Use ls /Volumes to get a list of volumes and ls /dev to get a list of devices that are mounted.
