@@ -1,0 +1,97 @@
+Acquiring Data with dd in Linux
+dd stands for “data dump” and is available on all UNIX and Linux distributions. dd can create a bit-by-bit copy of a physical drive without mounting the drive first. This RAW image ca be read by most of the forensics tools currently on the market. A few shortcomings of the dd command are: no support of decompression, no additional metadata can be saved.
+An example of the dd command is shown here:
+	dd if=/dev/sdb of=sdb_image.img bs=65536 conv=noerror,sync
+Explanation of the parameters:
+if             => input file
+/dev/sdb       => source /suspect drive (whole disk)
+of             => output file
+sdb_image.img  => name of the image file
+bs             => block size (default is 512)
+65536          => 64k
+conv           => conversion
+noerror        => will continue even with read errors
+sync           => if there is an error, null fill the rest of the block.
+
+dcfldd
+dd in general is a data management tool and was not particularly built for forensics purposes. Therefore it has its shortcomings.
+Nicholas Harbour of the Defense Computer Forensics Laboratory (DCFL) developed a tool  that works very similar than dd but adds many features to support forensics data acquisition. dcfldd offers the following options:
+•	Log errors to an output file for analysis and review
+•	Various hashing options MD5, SHA-1, SHA-256, etc
+•	Indicating the acquisition progress
+•	Split image file into segmented volumes
+•	Verify acquired data with the original source
+
+An example of the dcfldd command is shown here:
+	dcfldd if=/dev/sdb of=sdb_image.img
+Explanation of the parameters:
+if             => input file
+/dev/sdb       => source /suspect drive (whole disk)
+of             => output file
+sdb_image.img  => name of the image file
+If you need to split the image file in smaller chunks and hash the image at the and:
+	dcfldd if=/dev/sdb split=2M of=sdb_image.img hash=md5
+A more advanced dcfldd command could look like:
+dcfldd if=/dev/sdb hash=md5,sha256 hashwindow=2G md5log=md5.txt sha256log=sha256.txt \ hashconv=after bs=512 conv=noerror,sync split=2G splitformat=aa of=sdb_image.img
+Explanation of the parameters:
+if             => input file
+/dev/sdb       => source /suspect drive (whole disk)
+hash           => Definition of hash algorithms
+hashwindows    => Will hash data chunks of 2 GB
+md5log         => Saves all md5 hashes in a file called md5.txt
+sha256log      => Saves all sha hashes in a file called sha256.txt
+hashconv       => Hashing AFTER or BEFORE the conversion
+bs             => block size (default is 512)
+512             => block size of 512 kilobyte
+conv           => conversion
+noerror        => will continue even with read errors
+sync           => if there is an error, NULL fill the rest of the block
+split          => Split image file in chunks of 2 GB
+splitformat    => the file extension format for split operation
+of             => output file sdb_image.img => name of the image file
+This command will read two Gigabytes from the source drive and write that to a file called sdb_image.img.aa. It will also calculate the MD5 hash and the sha256 hash of the two Gigabyte chunk. It will then read the next two gigs and name that sdb_image.img.ab. The md5 hashes will be stored in a file called md5.txt and the sha256 hashes will be stored in a file called sha256.txt. The block size for transferring has been set to 512 bytes, and in the event of read errors, dcfldd will write zeros.
+
+Cautions, this tool is not suitable for imaging faulty drives:
+dcfldd is based on an extremely old version of dd: it’s known that dcfldd will misalign the data in the image after a faulty sector is encountered on the source drive (see the NIST report), and this kind of bug (wrong offset calculation when seeking over a bad block) was fixed for dd in 2003 (see the fix in the mailing list);
+Similarly, dcfldd can enter an infinite loop when a faulty sector is encountered on the source drive, thus writing to the image over and over again until there is no free space left (source: forensicswiki).
+
+
+Dc3dd
+dc3dd is a patched version of GNU dd with added features for computer forensics. It was developed at the DoD Cyber Crime Center by Jesse Kornblum. The first release, corresponding to Coreutils version 6.9.91, was published on 1 Feb 2008.
+
+Comparison to GNU dd
+The following features are available in dc3dd that are not found in GNU dd:
+•	On the fly hashing with multiple algorithms (MD5, SHA-1, SHA-256, and SHA-512) with variable sized piecewise hashing
+•	Able to write errors directly to a file
+•	Combined error log. Groups errors together (e.g. Had 1,023 'Input/ouput errors' between blocks 17-233' )
+•	Pattern wiping. Wipe output files with a single hex digit or a text pattern
+•	Verify mode
+•	Progress reports. See the progress of the operation while it's running
+•	Split output. Able to split output files into fixed size chunks
+The following changes to GNU dd's behavior were made:
+•	On a partial read, the whole block is wiped with zeros. This allows for repeatable reads/hashes of a drive with errors.
+Comparison to dcfldd
+Although there are definitely similarities between dc3dd and dcfldd, the programs are based on slightly different code bases and have different feature sets. dcfldd is a fork of GNU dd, whereas dc3dd is a patch to the current version. This means that dc3dd will be updated every time GNU dd is updated, whereas dcfldd has its own release schedule. Certain features added to GNU dd after dcfldd forked, such as direct input/output mode, are not found in dcfldd.
+On the other hand, dcfldd supports more hashing algorithms than dc3dd, allows the user greater control over how hashes are displayed, supports wiping output files with random patterns, and is supported on the Cygwin platform.
+
+An example of a dc3dd command is shown here:
+	dc3dd if=/dev/sdb of=sdb_image.img bs=4k hash=md5 log=dc3dd.log progress=on split=2G splitformat=000
+Explanation of the parameters:
+if             => input file
+/dev/sdb       => source /suspect drive (whole disk)
+of             => output file
+bs             => blocksize of 4 kb
+sdb_image.img  => name of the image file
+hash           => Definition of hash algorithms
+log            => Path of the log file
+progress       => on; see progress of acquisition
+split          => Split image file in chunks of 2 GB
+splitformat    => Will append a number or letter at the end of the image file name
+
+DC3DD offers the best of DD with more features, including:
+•	On-the-fly hashing using more algorithm choices (MD5, SHA-1, SHA-256, and SHA-512)
+•	A meter to monitor progress and acquisition time
+•	Writing of errors to a file
+•	Splitting of output files
+•	Verification of files
+•	Wiping of output files (pattern wiping)
