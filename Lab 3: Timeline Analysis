@@ -1,0 +1,140 @@
+1) printkey
+
+root@kali:~# volatility --profile Win7SP1x64 -f /media/root/SHAD1/memdump.mem printkey -K 'ControlSet001\Control\TimeZoneInformation'
+Volatility Foundation Volatility Framework 2.6
+Legend: (S) = Stable   (V) = Volatile
+
+----------------------------
+Registry: \REGISTRY\MACHINE\SYSTEM
+Key name: TimeZoneInformation (S)
+Last updated: 2016-02-02 21:39:23 UTC+0000
+
+Subkeys:
+
+Values:
+REG_DWORD     Bias            : (S) 180
+REG_DWORD     DaylightBias    : (S) 4294967236
+REG_SZ        DaylightName    : (S) @tzres.dll,-771
+REG_BINARY    DaylightStart   : (S) 
+0x00000000  00 00 0a 00 01 00 02 00 00 00 00 00 00 00 00 00   ................
+REG_DWORD     StandardBias    : (S) 0
+REG_SZ        StandardName    : (S) @tzres.dll,-772
+REG_BINARY    StandardStart   : (S) 
+0x00000000  00 00 03 00 02 00 02 00 00 00 00 00 00 00 00 00   ................
+REG_SZ        TimeZoneKeyName : (S) Montevideo Standard Timeime\u03d1H\ue060\u03d1\u8da8'p\u1f9f\ufc2e\uffff\uffff\u7257\uffd8\uffff\uffff\u9b43\u773a\u9bef\u773a\u3ee0\ufb44\u07fe\xa6\u3bfc\u773a\xa6\u3ee0\ufb44\u07fe\u014b\u07fe
+REG_DWORD     DynamicDaylightTimeDisabled : (S) 0
+REG_DWORD     ActiveTimeBias  : (S) 120
+
+2) truecryptsummary
+
+root@kali:~# volatility --profile Win7SP1x64 -f /media/root/SHAD1/memdump.mem truecryptsummary
+Volatility Foundation Volatility Framework 2.6
+Password             whiterabbit at offset 0xfffff88002adfee4
+Process              TrueCrypt.exe at 0xfffffa800254cb30 pid 2728
+Service              truecrypt state SERVICE_RUNNING
+Kernel Module        truecrypt.sys at 0xfffff88002aa4000 - 0xfffff88002ae5000
+Symbolic Link        Z: -> \Device\TrueCryptVolumeZ mounted 2016-02-02 20:01:09 UTC+0000
+Symbolic Link        Volume{5e83ea65-c9e7-11e5-a315-08002748d70f} -> \Device\TrueCryptVolumeZ mounted 2016-02-02 20:00:44 UTC+0000
+Symbolic Link        Z: -> \Device\TrueCryptVolumeZ mounted 2016-02-02 20:01:09 UTC+0000
+File Object          \Device\TrueCryptVolumeZ\$Directory at 0x1de987f0
+File Object          \Device\TrueCryptVolumeZ\$Mft at 0x1e029510
+File Object          \Device\TrueCryptVolumeZ\$LogFile at 0x1e033050
+File Object          \Device\clfs\Device\TrueCryptVolumeZ\$Extend\$RmMetadata\$TxfLog\$TxfLog at 0x1e034200
+File Object          \Device\TrueCryptVolumeZ\$MftMirr at 0x1e035430
+File Object          \Device\TrueCryptVolumeZ\ at 0x1e073e20
+File Object          \Device\TrueCryptVolumeZ\20151026_132208_5_bestshot.jpg at 0x1e0a0840
+File Object          \Device\TrueCryptVolumeZ\$Extend\$RmMetadata\$TxfLog\$TxfLogContainer00000000000000000002 at 0x1e161300
+File Object          \Device\TrueCryptVolumeZ\$Extend\$RmMetadata\$TxfLog\$TxfLogContainer00000000000000000001 at 0x1e161430
+File Object          \Device\TrueCryptVolumeZ\$Mft at 0x1e26dbc0
+File Object          \Device\TrueCryptVolumeZ\$Directory at 0x1e290320
+File Object          \Device\TrueCryptVolumeZ\$Directory at 0x1e3cbd10
+File Object          \Device\TrueCryptVolumeZ\$Extend\$RmMetadata\$TxfLog\$TxfLog.blf at 0x1e3d3720
+File Object          \Device\clfs\Device\TrueCryptVolumeZ\$Extend\$RmMetadata\$TxfLog\$TxfLog at 0x1e5fddf0
+File Object          \Device\clfs\Device\TrueCryptVolumeZ\$Extend\$RmMetadata\$TxfLog\$TxfLog at 0x1e5fdf20
+File Object          \Device\TrueCryptVolumeZ\$Directory at 0x1e97f8e0
+File Object          \Device\TrueCryptVolumeZ\ at 0x1eeb5330
+File Object          \Device\TrueCryptVolumeZ\$BitMap at 0x1f123ea0
+Driver               \Driver\truecrypt at 0x1ef02170 range 0xfffff88002aa4000 - 0xfffff88002ae5000
+Device               TrueCryptVolumeZ at 0xfffffa8002643080 type FILE_DEVICE_DISK
+Container            Path: \??\C:\Users\Alice\Desktop\safe.tc
+Device               TrueCrypt at 0xfffffa80021ff400 type FILE_DEVICE_UNKNOWN
+
+3) Using dcfldd to acquire an image of the mounted TrueCrypt volume
+
+root@kali:~# sudo dcfldd if=/dev/mapper/df2crypt bs=512 hash=md5,sha256 md5log=md5.txt sha256log=sha256.txt hashwindow=1M of=/media/root/SHAD1/container.dd
+101888 blocks (49Mb) written.
+101888+0 records in
+101888+0 records out
+
+4)Using fls to output a mactime body format file from the acquired image
+
+root@kali:~# fls -r -p -m Z: /media/root/SHAD1/container.dd
+0|Z:/$AttrDef ($FILE_NAME)|4-48-2|r/rr-xr-xr-x|48|0|82|1454443244|1454443244|1454443244|1454443244
+0|Z:/$AttrDef|4-128-4|r/rr-xr-xr-x|48|0|2560|1454443244|1454443244|1454443244|1454443244
+0|Z:/$BadClus ($FILE_NAME)|8-48-3|r/rr-xr-xr-x|0|0|82|1454443244|1454443244|1454443244|1454443244
+0|Z:/$BadClus|8-128-2|r/rr-xr-xr-x|0|0|0|1454443244|1454443244|1454443244|1454443244
+0|Z:/$BadClus:$Bad|8-128-1|r/rr-xr-xr-x|0|0|52162560|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Bitmap ($FILE_NAME)|6-48-2|r/rr-xr-xr-x|0|0|80|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Bitmap|6-128-4|r/rr-xr-xr-x|0|0|1592|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Boot ($FILE_NAME)|7-48-2|r/rr-xr-xr-x|48|0|76|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Boot|7-128-1|r/rr-xr-xr-x|48|0|8192|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend ($FILE_NAME)|11-48-3|d/dr-xr-xr-x|0|0|80|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend|11-144-4|d/dr-xr-xr-x|0|0|448|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$ObjId ($FILE_NAME)|25-48-1|r/rr-xr-xr-x|0|0|78|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$ObjId:$O|25-144-2|r/rr-xr-xr-x|0|0|312|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$Quota ($FILE_NAME)|24-48-1|r/rr-xr-xr-x|0|0|78|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$Quota:$O|24-144-3|r/rr-xr-xr-x|0|0|88|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$Quota:$Q|24-144-2|r/rr-xr-xr-x|0|0|208|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$Reparse ($FILE_NAME)|26-48-1|r/rr-xr-xr-x|0|0|82|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$Reparse:$R|26-144-2|r/rr-xr-xr-x|0|0|48|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata ($FILE_NAME)|27-48-1|d/dr-xr-xr-x|0|0|88|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata|27-144-2|d/dr-xr-xr-x|0|0|336|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$Repair ($FILE_NAME)|28-48-1|r/rr-xr-xr-x|0|0|80|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$Repair|28-128-4|r/rr-xr-xr-x|0|0|0|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$Repair:$Config|28-128-2|r/rr-xr-xr-x|0|0|8|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$Txf ($FILE_NAME)|30-48-1|d/dr-xr-xr-x|0|0|74|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$Txf|30-144-2|d/dr-xr-xr-x|0|0|48|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$TxfLog ($FILE_NAME)|29-48-1|d/dr-xr-xr-x|0|0|80|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$TxfLog|29-144-5|d/dr-xr-xr-x|0|0|56|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$TxfLog/$Tops ($FILE_NAME)|31-48-1|r/rr-xr-xr-x|0|0|76|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$TxfLog/$Tops|31-128-2|r/rr-xr-xr-x|0|0|100|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$TxfLog/$Tops:$T|31-128-4|r/rr-xr-xr-x|0|0|1048576|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$TxfLog/$TxfLog.blf ($FILE_NAME)|32-48-2|r/rrwxrwxrwx|0|0|88|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$TxfLog/$TxfLog.blf|32-128-1|r/rrwxrwxrwx|0|0|65536|1454443244|1454443510|1454443510|1454443244
+0|Z:/$Extend/$RmMetadata/$TxfLog/$TxfLogContainer00000000000000000001 ($FILE_NAME)|33-48-2|r/rrwxrwxrwx|0|0|138|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$TxfLog/$TxfLogContainer00000000000000000001|33-128-1|r/rrwxrwxrwx|0|0|2097152|1454443244|1454443510|1454443510|1454443244
+0|Z:/$Extend/$RmMetadata/$TxfLog/$TxfLogContainer00000000000000000002 ($FILE_NAME)|34-48-2|r/rrwxrwxrwx|0|0|138|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Extend/$RmMetadata/$TxfLog/$TxfLogContainer00000000000000000002|34-128-1|r/rrwxrwxrwx|0|0|2097152|1454443244|1454443246|1454443246|1454443244
+0|Z:/$LogFile ($FILE_NAME)|2-48-2|r/rr-xr-xr-x|0|0|82|1454443244|1454443244|1454443244|1454443244
+0|Z:/$LogFile|2-128-1|r/rr-xr-xr-x|0|0|2097152|1454443244|1454443244|1454443244|1454443244
+0|Z:/$MFT ($FILE_NAME)|0-48-3|r/rr-xr-xr-x|0|0|74|1454443244|1454443244|1454443244|1454443244
+0|Z:/$MFT|0-128-1|r/rr-xr-xr-x|0|0|262144|1454443244|1454443244|1454443244|1454443244
+0|Z:/$MFTMirr ($FILE_NAME)|1-48-2|r/rr-xr-xr-x|0|0|82|1454443244|1454443244|1454443244|1454443244
+0|Z:/$MFTMirr|1-128-1|r/rr-xr-xr-x|0|0|4096|1454443244|1454443244|1454443244|1454443244
+0|Z:/$RECYCLE.BIN ($FILE_NAME)|40-48-2|d/dr-xr-xr-x|0|0|90|1454443366|1454443366|1454443366|1454443366
+0|Z:/$RECYCLE.BIN|40-144-1|d/dr-xr-xr-x|0|0|328|1454443366|1454443366|1454443366|1454443366
+0|Z:/$RECYCLE.BIN/S-1-5-21-35560333-1700346024-1476543508-1000 ($FILE_NAME)|41-48-2|d/dr-xr-xr-x|0|0|154|1454443366|1454443366|1454443366|1454443366
+0|Z:/$RECYCLE.BIN/S-1-5-21-35560333-1700346024-1476543508-1000|41-144-1|d/dr-xr-xr-x|0|0|376|1454443368|1454443368|1454443368|1454443366
+0|Z:/$RECYCLE.BIN/S-1-5-21-35560333-1700346024-1476543508-1000/$IY5ZSGE.jpg ($FILE_NAME)|43-48-2|r/rrwxrwxrwx|0|0|90|1454443368|1454443368|1454443368|1454443368
+0|Z:/$RECYCLE.BIN/S-1-5-21-35560333-1700346024-1476543508-1000/$IY5ZSGE.jpg|43-128-1|r/rrwxrwxrwx|0|0|544|1454443368|1454443368|1454443368|1454443368
+0|Z:/$RECYCLE.BIN/S-1-5-21-35560333-1700346024-1476543508-1000/$RY5ZSGE.jpg ($FILE_NAME)|36-48-4|r/rrwxrwxrwx|0|0|90|1454443353|1454443331|1454443353|1454443353
+0|Z:/$RECYCLE.BIN/S-1-5-21-35560333-1700346024-1476543508-1000/$RY5ZSGE.jpg|36-128-1|r/rrwxrwxrwx|0|0|1290985|1454443353|1454443331|1454443368|1454443353
+0|Z:/$RECYCLE.BIN/S-1-5-21-35560333-1700346024-1476543508-1000/desktop.ini ($FILE_NAME)|42-48-2|r/rr-xr-xr-x|0|0|88|1454443366|1454443366|1454443366|1454443366
+0|Z:/$RECYCLE.BIN/S-1-5-21-35560333-1700346024-1476543508-1000/desktop.ini|42-128-1|r/rr-xr-xr-x|0|0|129|1454443366|1454443366|1454443366|1454443366
+0|Z:/$Secure ($FILE_NAME)|9-48-7|r/rr-xr-xr-x|0|0|80|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Secure:$SDS|9-128-8|r/rr-xr-xr-x|0|0|263756|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Secure:$SDH|9-144-11|r/rr-xr-xr-x|0|0|56|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Secure:$SII|9-144-14|r/rr-xr-xr-x|0|0|56|1454443244|1454443244|1454443244|1454443244
+0|Z:/$UpCase ($FILE_NAME)|10-48-2|r/rr-xr-xr-x|0|0|80|1454443244|1454443244|1454443244|1454443244
+0|Z:/$UpCase|10-128-1|r/rr-xr-xr-x|0|0|131072|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Volume ($FILE_NAME)|3-48-1|r/rr-xr-xr-x|48|0|80|1454443244|1454443244|1454443244|1454443244
+0|Z:/$Volume|3-128-3|r/rr-xr-xr-x|48|0|0|1454443244|1454443244|1454443244|1454443244
+0|Z:/20151022_085645.jpg ($FILE_NAME)|37-48-2|r/rrwxrwxrwx|0|0|104|1454443353|1454443353|1454443353|1454443353
+0|Z:/20151022_085645.jpg|37-128-1|r/rrwxrwxrwx|0|0|982740|1454443353|1454443331|1454443353|1454443353
+0|Z:/20151026_132208_5_bestshot.jpg ($FILE_NAME)|35-48-2|r/rrwxrwxrwx|0|0|126|1454443353|1454443353|1454443353|1454443353
+0|Z:/20151026_132208_5_bestshot.jpg|35-128-1|r/rrwxrwxrwx|0|0|2357092|1438804976|1438804976|1438804976|1438804976
+0|Z:/20151028_084409.jpg ($FILE_NAME)|38-48-2|r/rrwxrwxrwx|0|0|104|1454443359|1454443359|1454443359|1454443359
+0|Z:/20151028_084409.jpg|38-128-1|r/rrwxrwxrwx|0|0|1145140|1433275376|1433275376|1433275376|1433275376
+0|Z:/20151029_092733.jpg ($FILE_NAME)|39-48-2|r/rrwxrwxrwx|0|0|104|1454443359|1454443359|1454443359|1454443359
+0|Z:/20151029_092733.jpg|39-128-1|r/rrwxrwxrwx|0|0|2050894|1454443359|1454443331|1454443359|1454443331
+0|Z:/$OrphanFiles|256|V/V---------|0|0|0|0|0|0|0
