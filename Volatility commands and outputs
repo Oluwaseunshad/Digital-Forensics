@@ -1,4 +1,6 @@
-root@kali:~# volatility -f /media/root/SHAD/memdump.mem imageinfo
+1) imageinfo
+
+@kali:~# volatility -f /media/root/SHAD/memdump.mem imageinfo
 Volatility Foundation Volatility Framework 2.6
 INFO    : volatility.debug    : Determining profile based on KDBG search...
           Suggested Profile(s) : Win10x64_10586, Win10x64_14393, Win10x64, Win2016x64_14393, Win10x64_15063 (Instantiated with Win10x64_15063)
@@ -16,6 +18,9 @@ INFO    : volatility.debug    : Determining profile based on KDBG search...
              KUSER_SHARED_DATA : 0xfffff78000000000L
            Image date and time : 2018-08-20 08:34:36 UTC+0000
      Image local date and time : 2018-08-20 04:34:36 -0400
+     
+2) pslist
+
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 pslist
 Volatility Foundation Volatility Framework 2.6
 Offset(V)          Name                    PID   PPID   Thds     Hnds   Sess  Wow64 Start                          Exit                          
@@ -67,7 +72,7 @@ Cn???smss.exe        432      0 19...6        0 ------      0 6235-10-10 13:14:2
 0xffffad0e6e95a078 ??q???svchost.       2428    252 19...0        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
 0xffffad0e720c1578 ?r???igfxCUIS       2536    144 19...2        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
 0xffffad0e72124578  ?
-                     r???svchost.       2588    252 19...6        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
+r???svchost.       2588    252 19...6        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
 0xffffad0e7213c578 @r???svchost.       2616    256 19...2        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
 0xffffad0e7213b078 ??r???svchost.       2628    256 20...8        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
 0xffffad0e6ec27578 P:r???svchost.       2744    260 19...8        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
@@ -117,7 +122,7 @@ Cn???smss.exe        432      0 19...6        0 ------      0 6235-10-10 13:14:2
 0xffffad0e74070578 ??t???mfevtps.       4624    132 19...4        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
 0xffffad0e7409e078 't???svchost.       4716    252 19...0        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
 0xffffad0e740db078 ??
-                     t???IntelCpH       4776    160 19...4        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
+t???IntelCpH       4776    160 19...4        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
 0xffffad0e74111078 ?@
 t???svchost.       4824    252 19...6        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
 0xffffad0e73f0a578 ???s???MMSSHOST       4392    176 17...8        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
@@ -216,7 +221,7 @@ t???svchost.       4824    252 19...6        0 ------      0 6236-07-21 07:00:39
 0xffffad0e756a1078 Pu???slack.ex      13508    248 17...4        0 ------      0                                                              
 0xffffad0e7548a578 `#o???slack.ex      11580    256 18...4        0 ------      0                                                              
 0xffffad0e69687078 ?u
-                     v???HPCommRe      13324    244 19...6        0 ------      0 6236-12-31 04:23:08 UTC+0000                                 
+v???HPCommRe      13324    244 19...6        0 ------      0 6236-12-31 04:23:08 UTC+0000                                 
 0xffffad0e69681078 ??'t???HPJumpSt      14936    340 17...8        0 ------      0 6237-01-02 17:28:11 UTC+0000                                 
 0xffffad0e756b5578 0GBv???HPSuppor      15160    244 19...0        0 ------      0 6238-10-13 17:53:04 UTC+0000                                 
 0xffffad0e7458f078 ??Qt???IAStorDa      14412    320 19...8        0 ------      0 6236-12-31 04:23:09 UTC+0000                                 
@@ -239,7 +244,11 @@ t???svchost.       4824    252 19...6        0 ------      0 6236-07-21 07:00:39
 0xffffad0e701ee578 ???w???svchost.      14348    252 19...8        0 ------      0 6236-07-21 07:00:39 UTC+0000                                 
 0xffffad0e748b9578                       14440    432 19...2        0 ------      0 6692-05-05 17:10:47 UTC+0000                                 
 0xffffad0e77d370f8                        4452    276 20...8        0 ------      0 -                                                            
-0xffffad0e772fd578 pU?t???reader_s      12420    304 19...0        0 ------      0 4409-10-27 08:20:09 UTC+0000                                 
+0xffffad0e772fd578 pU?t???reader_s      12420    304 19...0        0 ------      0 4409-10-27 08:20:09 UTC+0000
+
+
+3) psscan
+
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 psscan
 Volatility Foundation Volatility Framework 2.6
 Offset(P)          Name                PID   PPID PDB                Time created                   Time exited                   
@@ -248,10 +257,19 @@ Offset(P)          Name                PID   PPID PDB                Time create
 0x0000d4075e80a71e o                11...7 76...1 0x16e0fffffff00000 7587-10-30 13:39:28 UTC+0000   8288-01-06 19:53:59 UTC+0000  
 0x0000d4075e84adc6                       0 48...4 0x1d88fffffff00000                              -                              -
 0x0000d4075f34adce                  42...6 73...9 0x2d90fffffff00000                              -                               
+
+4) cmdscan
+
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 cmdscan
 Volatility Foundation Volatility Framework 2.6
+
+5) consoles
+
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 consoles
 Volatility Foundation Volatility Framework 2.6
+
+6) privs
+
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 privs
 Volatility Foundation Volatility Framework 2.6
 Pid      Process          Value  Privilege                            Attributes               Description
@@ -1549,73 +1567,73 @@ Pid      Process          Value  Privilege                            Attributes
     2536 ?r???igfxCUIS     34 SeTimeZonePrivilege                                           Adjust the time zone of the computer's internal clock
     2536 ?r???igfxCUIS     35 SeCreateSymbolicLinkPrivilege                                 Required to create a symbolic link
     2588  ?
-           r???svchost.      2 SeCreateTokenPrivilege                                        Create a token object
+r???svchost.      2 SeCreateTokenPrivilege                                        Create a token object
     2588  ?
-           r???svchost.      3 SeAssignPrimaryTokenPrivilege                                 Replace a process-level token
+r???svchost.      3 SeAssignPrimaryTokenPrivilege                                 Replace a process-level token
     2588  ?
-           r???svchost.      4 SeLockMemoryPrivilege                                         Lock pages in memory
+r???svchost.      4 SeLockMemoryPrivilege                                         Lock pages in memory
     2588  ?
-           r???svchost.      5 SeIncreaseQuotaPrivilege                                      Increase quotas
+r???svchost.      5 SeIncreaseQuotaPrivilege                                      Increase quotas
     2588  ?
-           r???svchost.      6 SeMachineAccountPrivilege                                     Add workstations to the domain
+r???svchost.      6 SeMachineAccountPrivilege                                     Add workstations to the domain
     2588  ?
-           r???svchost.      7 SeTcbPrivilege                                                Act as part of the operating system
+r???svchost.      7 SeTcbPrivilege                                                Act as part of the operating system
     2588  ?
-           r???svchost.      8 SeSecurityPrivilege                                           Manage auditing and security log
+r???svchost.      8 SeSecurityPrivilege                                           Manage auditing and security log
     2588  ?
-           r???svchost.      9 SeTakeOwnershipPrivilege                                      Take ownership of files/objects
+r???svchost.      9 SeTakeOwnershipPrivilege                                      Take ownership of files/objects
     2588  ?
-           r???svchost.     10 SeLoadDriverPrivilege                                         Load and unload device drivers
+r???svchost.     10 SeLoadDriverPrivilege                                         Load and unload device drivers
     2588  ?
-           r???svchost.     11 SeSystemProfilePrivilege                                      Profile system performance
+r???svchost.     11 SeSystemProfilePrivilege                                      Profile system performance
     2588  ?
-           r???svchost.     12 SeSystemtimePrivilege                                         Change the system time
+r???svchost.     12 SeSystemtimePrivilege                                         Change the system time
     2588  ?
-           r???svchost.     13 SeProfileSingleProcessPrivilege                               Profile a single process
+r???svchost.     13 SeProfileSingleProcessPrivilege                               Profile a single process
     2588  ?
-           r???svchost.     14 SeIncreaseBasePriorityPrivilege                               Increase scheduling priority
+r???svchost.     14 SeIncreaseBasePriorityPrivilege                               Increase scheduling priority
     2588  ?
-           r???svchost.     15 SeCreatePagefilePrivilege                                     Create a pagefile
+r???svchost.     15 SeCreatePagefilePrivilege                                     Create a pagefile
     2588  ?
-           r???svchost.     16 SeCreatePermanentPrivilege                                    Create permanent shared objects
+r???svchost.     16 SeCreatePermanentPrivilege                                    Create permanent shared objects
     2588  ?
-           r???svchost.     17 SeBackupPrivilege                                             Backup files and directories
+r???svchost.     17 SeBackupPrivilege                                             Backup files and directories
     2588  ?
-           r???svchost.     18 SeRestorePrivilege                                            Restore files and directories
+r???svchost.     18 SeRestorePrivilege                                            Restore files and directories
     2588  ?
-           r???svchost.     19 SeShutdownPrivilege                                           Shut down the system
+r???svchost.     19 SeShutdownPrivilege                                           Shut down the system
     2588  ?
-           r???svchost.     20 SeDebugPrivilege                                              Debug programs
+r???svchost.     20 SeDebugPrivilege                                              Debug programs
     2588  ?
-           r???svchost.     21 SeAuditPrivilege                                              Generate security audits
+r???svchost.     21 SeAuditPrivilege                                              Generate security audits
     2588  ?
-           r???svchost.     22 SeSystemEnvironmentPrivilege                                  Edit firmware environment values
+r???svchost.     22 SeSystemEnvironmentPrivilege                                  Edit firmware environment values
     2588  ?
-           r???svchost.     23 SeChangeNotifyPrivilege                                       Receive notifications of changes to files or directories
+r???svchost.     23 SeChangeNotifyPrivilege                                       Receive notifications of changes to files or directories
     2588  ?
-           r???svchost.     24 SeRemoteShutdownPrivilege                                     Force shutdown from a remote system
+r???svchost.     24 SeRemoteShutdownPrivilege                                     Force shutdown from a remote system
     2588  ?
-           r???svchost.     25 SeUndockPrivilege                                             Remove computer from docking station
+r???svchost.     25 SeUndockPrivilege                                             Remove computer from docking station
     2588  ?
-           r???svchost.     26 SeSyncAgentPrivilege                                          Synch directory service data
+r???svchost.     26 SeSyncAgentPrivilege                                          Synch directory service data
     2588  ?
-           r???svchost.     27 SeEnableDelegationPrivilege                                   Enable user accounts to be trusted for delegation
+r???svchost.     27 SeEnableDelegationPrivilege                                   Enable user accounts to be trusted for delegation
     2588  ?
-           r???svchost.     28 SeManageVolumePrivilege                                       Manage the files on a volume
+r???svchost.     28 SeManageVolumePrivilege                                       Manage the files on a volume
     2588  ?
-           r???svchost.     29 SeImpersonatePrivilege                                        Impersonate a client after authentication
+r???svchost.     29 SeImpersonatePrivilege                                        Impersonate a client after authentication
     2588  ?
-           r???svchost.     30 SeCreateGlobalPrivilege                                       Create global objects
+r???svchost.     30 SeCreateGlobalPrivilege                                       Create global objects
     2588  ?
-           r???svchost.     31 SeTrustedCredManAccessPrivilege                               Access Credential Manager as a trusted caller
+r???svchost.     31 SeTrustedCredManAccessPrivilege                               Access Credential Manager as a trusted caller
     2588  ?
-           r???svchost.     32 SeRelabelPrivilege                                            Modify the mandatory integrity level of an object
+r???svchost.     32 SeRelabelPrivilege                                            Modify the mandatory integrity level of an object
     2588  ?
-           r???svchost.     33 SeIncreaseWorkingSetPrivilege                                 Allocate more memory for user applications
+r???svchost.     33 SeIncreaseWorkingSetPrivilege                                 Allocate more memory for user applications
     2588  ?
-           r???svchost.     34 SeTimeZonePrivilege                                           Adjust the time zone of the computer's internal clock
+r???svchost.     34 SeTimeZonePrivilege                                           Adjust the time zone of the computer's internal clock
     2588  ?
-           r???svchost.     35 SeCreateSymbolicLinkPrivilege                                 Required to create a symbolic link
+r???svchost.     35 SeCreateSymbolicLinkPrivilege                                 Required to create a symbolic link
     2616 @r???svchost.      2 SeCreateTokenPrivilege                                        Create a token object
     2616 @r???svchost.      3 SeAssignPrimaryTokenPrivilege                                 Replace a process-level token
     2616 @r???svchost.      4 SeLockMemoryPrivilege                                         Lock pages in memory
@@ -3249,73 +3267,73 @@ Pid      Process          Value  Privilege                            Attributes
     4716 't???svchost.     34 SeTimeZonePrivilege                                           Adjust the time zone of the computer's internal clock
     4716 't???svchost.     35 SeCreateSymbolicLinkPrivilege                                 Required to create a symbolic link
     4776 ??
-           t???IntelCpH      2 SeCreateTokenPrivilege                                        Create a token object
+t???IntelCpH      2 SeCreateTokenPrivilege                                        Create a token object
     4776 ??
-           t???IntelCpH      3 SeAssignPrimaryTokenPrivilege                                 Replace a process-level token
+t???IntelCpH      3 SeAssignPrimaryTokenPrivilege                                 Replace a process-level token
     4776 ??
-           t???IntelCpH      4 SeLockMemoryPrivilege                                         Lock pages in memory
+t???IntelCpH      4 SeLockMemoryPrivilege                                         Lock pages in memory
     4776 ??
-           t???IntelCpH      5 SeIncreaseQuotaPrivilege                                      Increase quotas
+t???IntelCpH      5 SeIncreaseQuotaPrivilege                                      Increase quotas
     4776 ??
-           t???IntelCpH      6 SeMachineAccountPrivilege                                     Add workstations to the domain
+t???IntelCpH      6 SeMachineAccountPrivilege                                     Add workstations to the domain
     4776 ??
-           t???IntelCpH      7 SeTcbPrivilege                                                Act as part of the operating system
+t???IntelCpH      7 SeTcbPrivilege                                                Act as part of the operating system
     4776 ??
-           t???IntelCpH      8 SeSecurityPrivilege                                           Manage auditing and security log
+t???IntelCpH      8 SeSecurityPrivilege                                           Manage auditing and security log
     4776 ??
-           t???IntelCpH      9 SeTakeOwnershipPrivilege                                      Take ownership of files/objects
+t???IntelCpH      9 SeTakeOwnershipPrivilege                                      Take ownership of files/objects
     4776 ??
-           t???IntelCpH     10 SeLoadDriverPrivilege                                         Load and unload device drivers
+t???IntelCpH     10 SeLoadDriverPrivilege                                         Load and unload device drivers
     4776 ??
-           t???IntelCpH     11 SeSystemProfilePrivilege                                      Profile system performance
+t???IntelCpH     11 SeSystemProfilePrivilege                                      Profile system performance
     4776 ??
-           t???IntelCpH     12 SeSystemtimePrivilege                                         Change the system time
+t???IntelCpH     12 SeSystemtimePrivilege                                         Change the system time
     4776 ??
-           t???IntelCpH     13 SeProfileSingleProcessPrivilege                               Profile a single process
+t???IntelCpH     13 SeProfileSingleProcessPrivilege                               Profile a single process
     4776 ??
-           t???IntelCpH     14 SeIncreaseBasePriorityPrivilege                               Increase scheduling priority
+t???IntelCpH     14 SeIncreaseBasePriorityPrivilege                               Increase scheduling priority
     4776 ??
-           t???IntelCpH     15 SeCreatePagefilePrivilege                                     Create a pagefile
+t???IntelCpH     15 SeCreatePagefilePrivilege                                     Create a pagefile
     4776 ??
-           t???IntelCpH     16 SeCreatePermanentPrivilege                                    Create permanent shared objects
+t???IntelCpH     16 SeCreatePermanentPrivilege                                    Create permanent shared objects
     4776 ??
-           t???IntelCpH     17 SeBackupPrivilege                                             Backup files and directories
+t???IntelCpH     17 SeBackupPrivilege                                             Backup files and directories
     4776 ??
-           t???IntelCpH     18 SeRestorePrivilege                                            Restore files and directories
+t???IntelCpH     18 SeRestorePrivilege                                            Restore files and directories
     4776 ??
-           t???IntelCpH     19 SeShutdownPrivilege                                           Shut down the system
+t???IntelCpH     19 SeShutdownPrivilege                                           Shut down the system
     4776 ??
-           t???IntelCpH     20 SeDebugPrivilege                                              Debug programs
+t???IntelCpH     20 SeDebugPrivilege                                              Debug programs
     4776 ??
-           t???IntelCpH     21 SeAuditPrivilege                                              Generate security audits
+t???IntelCpH     21 SeAuditPrivilege                                              Generate security audits
     4776 ??
-           t???IntelCpH     22 SeSystemEnvironmentPrivilege                                  Edit firmware environment values
+t???IntelCpH     22 SeSystemEnvironmentPrivilege                                  Edit firmware environment values
     4776 ??
-           t???IntelCpH     23 SeChangeNotifyPrivilege                                       Receive notifications of changes to files or directories
+t???IntelCpH     23 SeChangeNotifyPrivilege                                       Receive notifications of changes to files or directories
     4776 ??
-           t???IntelCpH     24 SeRemoteShutdownPrivilege                                     Force shutdown from a remote system
+t???IntelCpH     24 SeRemoteShutdownPrivilege                                     Force shutdown from a remote system
     4776 ??
-           t???IntelCpH     25 SeUndockPrivilege                                             Remove computer from docking station
+t???IntelCpH     25 SeUndockPrivilege                                             Remove computer from docking station
     4776 ??
-           t???IntelCpH     26 SeSyncAgentPrivilege                                          Synch directory service data
+t???IntelCpH     26 SeSyncAgentPrivilege                                          Synch directory service data
     4776 ??
-           t???IntelCpH     27 SeEnableDelegationPrivilege                                   Enable user accounts to be trusted for delegation
+t???IntelCpH     27 SeEnableDelegationPrivilege                                   Enable user accounts to be trusted for delegation
     4776 ??
-           t???IntelCpH     28 SeManageVolumePrivilege                                       Manage the files on a volume
+t???IntelCpH     28 SeManageVolumePrivilege                                       Manage the files on a volume
     4776 ??
-           t???IntelCpH     29 SeImpersonatePrivilege                                        Impersonate a client after authentication
+t???IntelCpH     29 SeImpersonatePrivilege                                        Impersonate a client after authentication
     4776 ??
-           t???IntelCpH     30 SeCreateGlobalPrivilege                                       Create global objects
+t???IntelCpH     30 SeCreateGlobalPrivilege                                       Create global objects
     4776 ??
-           t???IntelCpH     31 SeTrustedCredManAccessPrivilege                               Access Credential Manager as a trusted caller
+t???IntelCpH     31 SeTrustedCredManAccessPrivilege                               Access Credential Manager as a trusted caller
     4776 ??
-           t???IntelCpH     32 SeRelabelPrivilege                                            Modify the mandatory integrity level of an object
+t???IntelCpH     32 SeRelabelPrivilege                                            Modify the mandatory integrity level of an object
     4776 ??
-           t???IntelCpH     33 SeIncreaseWorkingSetPrivilege                                 Allocate more memory for user applications
+t???IntelCpH     33 SeIncreaseWorkingSetPrivilege                                 Allocate more memory for user applications
     4776 ??
-           t???IntelCpH     34 SeTimeZonePrivilege                                           Adjust the time zone of the computer's internal clock
+t???IntelCpH     34 SeTimeZonePrivilege                                           Adjust the time zone of the computer's internal clock
     4776 ??
-           t???IntelCpH     35 SeCreateSymbolicLinkPrivilege                                 Required to create a symbolic link
+t???IntelCpH     35 SeCreateSymbolicLinkPrivilege                                 Required to create a symbolic link
     4824 ?@
 t???svchost.      2 SeCreateTokenPrivilege                                        Create a token object
     4824 ?@
@@ -6615,73 +6633,73 @@ t???svchost.     35 SeCreateSymbolicLinkPrivilege                               
    11580 `#o???slack.ex     34 SeTimeZonePrivilege                                           Adjust the time zone of the computer's internal clock
    11580 `#o???slack.ex     35 SeCreateSymbolicLinkPrivilege                                 Required to create a symbolic link
    13324 ?u
-           v???HPCommRe      2 SeCreateTokenPrivilege                                        Create a token object
+v???HPCommRe      2 SeCreateTokenPrivilege                                        Create a token object
    13324 ?u
-           v???HPCommRe      3 SeAssignPrimaryTokenPrivilege                                 Replace a process-level token
+v???HPCommRe      3 SeAssignPrimaryTokenPrivilege                                 Replace a process-level token
    13324 ?u
-           v???HPCommRe      4 SeLockMemoryPrivilege                                         Lock pages in memory
+v???HPCommRe      4 SeLockMemoryPrivilege                                         Lock pages in memory
    13324 ?u
-           v???HPCommRe      5 SeIncreaseQuotaPrivilege                                      Increase quotas
+v???HPCommRe      5 SeIncreaseQuotaPrivilege                                      Increase quotas
    13324 ?u
-           v???HPCommRe      6 SeMachineAccountPrivilege                                     Add workstations to the domain
+v???HPCommRe      6 SeMachineAccountPrivilege                                     Add workstations to the domain
    13324 ?u
-           v???HPCommRe      7 SeTcbPrivilege                                                Act as part of the operating system
+v???HPCommRe      7 SeTcbPrivilege                                                Act as part of the operating system
    13324 ?u
-           v???HPCommRe      8 SeSecurityPrivilege                                           Manage auditing and security log
+v???HPCommRe      8 SeSecurityPrivilege                                           Manage auditing and security log
    13324 ?u
-           v???HPCommRe      9 SeTakeOwnershipPrivilege                                      Take ownership of files/objects
+v???HPCommRe      9 SeTakeOwnershipPrivilege                                      Take ownership of files/objects
    13324 ?u
-           v???HPCommRe     10 SeLoadDriverPrivilege                                         Load and unload device drivers
+v???HPCommRe     10 SeLoadDriverPrivilege                                         Load and unload device drivers
    13324 ?u
-           v???HPCommRe     11 SeSystemProfilePrivilege                                      Profile system performance
+v???HPCommRe     11 SeSystemProfilePrivilege                                      Profile system performance
    13324 ?u
-           v???HPCommRe     12 SeSystemtimePrivilege                                         Change the system time
+v???HPCommRe     12 SeSystemtimePrivilege                                         Change the system time
    13324 ?u
-           v???HPCommRe     13 SeProfileSingleProcessPrivilege                               Profile a single process
+v???HPCommRe     13 SeProfileSingleProcessPrivilege                               Profile a single process
    13324 ?u
-           v???HPCommRe     14 SeIncreaseBasePriorityPrivilege                               Increase scheduling priority
+v???HPCommRe     14 SeIncreaseBasePriorityPrivilege                               Increase scheduling priority
    13324 ?u
-           v???HPCommRe     15 SeCreatePagefilePrivilege                                     Create a pagefile
+v???HPCommRe     15 SeCreatePagefilePrivilege                                     Create a pagefile
    13324 ?u
-           v???HPCommRe     16 SeCreatePermanentPrivilege                                    Create permanent shared objects
+v???HPCommRe     16 SeCreatePermanentPrivilege                                    Create permanent shared objects
    13324 ?u
-           v???HPCommRe     17 SeBackupPrivilege                                             Backup files and directories
+v???HPCommRe     17 SeBackupPrivilege                                             Backup files and directories
    13324 ?u
-           v???HPCommRe     18 SeRestorePrivilege                                            Restore files and directories
+v???HPCommRe     18 SeRestorePrivilege                                            Restore files and directories
    13324 ?u
-           v???HPCommRe     19 SeShutdownPrivilege                                           Shut down the system
+v???HPCommRe     19 SeShutdownPrivilege                                           Shut down the system
    13324 ?u
-           v???HPCommRe     20 SeDebugPrivilege                                              Debug programs
+v???HPCommRe     20 SeDebugPrivilege                                              Debug programs
    13324 ?u
-           v???HPCommRe     21 SeAuditPrivilege                                              Generate security audits
+v???HPCommRe     21 SeAuditPrivilege                                              Generate security audits
    13324 ?u
-           v???HPCommRe     22 SeSystemEnvironmentPrivilege                                  Edit firmware environment values
+v???HPCommRe     22 SeSystemEnvironmentPrivilege                                  Edit firmware environment values
    13324 ?u
-           v???HPCommRe     23 SeChangeNotifyPrivilege                                       Receive notifications of changes to files or directories
+v???HPCommRe     23 SeChangeNotifyPrivilege                                       Receive notifications of changes to files or directories
    13324 ?u
-           v???HPCommRe     24 SeRemoteShutdownPrivilege                                     Force shutdown from a remote system
+v???HPCommRe     24 SeRemoteShutdownPrivilege                                     Force shutdown from a remote system
    13324 ?u
-           v???HPCommRe     25 SeUndockPrivilege                                             Remove computer from docking station
+v???HPCommRe     25 SeUndockPrivilege                                             Remove computer from docking station
    13324 ?u
-           v???HPCommRe     26 SeSyncAgentPrivilege                                          Synch directory service data
+v???HPCommRe     26 SeSyncAgentPrivilege                                          Synch directory service data
    13324 ?u
-           v???HPCommRe     27 SeEnableDelegationPrivilege                                   Enable user accounts to be trusted for delegation
+v???HPCommRe     27 SeEnableDelegationPrivilege                                   Enable user accounts to be trusted for delegation
    13324 ?u
-           v???HPCommRe     28 SeManageVolumePrivilege                                       Manage the files on a volume
+v???HPCommRe     28 SeManageVolumePrivilege                                       Manage the files on a volume
    13324 ?u
-           v???HPCommRe     29 SeImpersonatePrivilege                                        Impersonate a client after authentication
+v???HPCommRe     29 SeImpersonatePrivilege                                        Impersonate a client after authentication
    13324 ?u
-           v???HPCommRe     30 SeCreateGlobalPrivilege                                       Create global objects
+v???HPCommRe     30 SeCreateGlobalPrivilege                                       Create global objects
    13324 ?u
-           v???HPCommRe     31 SeTrustedCredManAccessPrivilege                               Access Credential Manager as a trusted caller
+v???HPCommRe     31 SeTrustedCredManAccessPrivilege                               Access Credential Manager as a trusted caller
    13324 ?u
-           v???HPCommRe     32 SeRelabelPrivilege                                            Modify the mandatory integrity level of an object
+v???HPCommRe     32 SeRelabelPrivilege                                            Modify the mandatory integrity level of an object
    13324 ?u
-           v???HPCommRe     33 SeIncreaseWorkingSetPrivilege                                 Allocate more memory for user applications
+v???HPCommRe     33 SeIncreaseWorkingSetPrivilege                                 Allocate more memory for user applications
    13324 ?u
-           v???HPCommRe     34 SeTimeZonePrivilege                                           Adjust the time zone of the computer's internal clock
+v???HPCommRe     34 SeTimeZonePrivilege                                           Adjust the time zone of the computer's internal clock
    13324 ?u
-           v???HPCommRe     35 SeCreateSymbolicLinkPrivilege                                 Required to create a symbolic link
+v???HPCommRe     35 SeCreateSymbolicLinkPrivilege                                 Required to create a symbolic link
    14936 ??'t???HPJumpSt      2 SeCreateTokenPrivilege                                        Create a token object
    14936 ??'t???HPJumpSt      3 SeAssignPrimaryTokenPrivilege                                 Replace a process-level token
    14936 ??'t???HPJumpSt      4 SeLockMemoryPrivilege                                         Lock pages in memory
@@ -7430,14 +7448,21 @@ t???svchost.     35 SeCreateSymbolicLinkPrivilege                               
    12420 pU?t???reader_s     33 SeIncreaseWorkingSetPrivilege                                 Allocate more memory for user applications
    12420 pU?t???reader_s     34 SeTimeZonePrivilege                                           Adjust the time zone of the computer's internal clock
    12420 pU?t???reader_s     35 SeCreateSymbolicLinkPrivilege                                 Required to create a symbolic link
+
+7) envars
+
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 envars
 Volatility Foundation Volatility Framework 2.6
 Pid      Process              Block              Variable                       Value
 -------- -------------------- ------------------ ------------------------------ -----
+
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 envars
 Volatility Foundation Volatility Framework 2.6
 Pid      Process              Block              Variable                       Value
 -------- -------------------- ------------------ ------------------------------ -----
+
+8) procdump
+
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 procdump -D /media/root/SHAD/dump
 Volatility Foundation Volatility Framework 2.6
 Process(V)         ImageBase          Name                 Result
@@ -7656,224 +7681,10 @@ Process(V)         ImageBase          Name                 Result
 0xffffad0e748b9578 ------------------                      Error: Cannot acquire process AS
 0xffffad0e77d370f8 ------------------                      Error: Cannot acquire process AS
 0xffffad0e772fd578 ------------------                      Error: Cannot acquire process AS
-root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 procdump -D /media/root/SHAD/dump --unsafe
-Volatility Foundation Volatility Framework 2.6
-Process(V)         ImageBase          Name                 Result
------------------- ------------------ -------------------- ------
-0xffffad0e68cc2038 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6e79c038 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6fed1578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6ee7f578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72d39578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72d37578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72d36078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e719ca578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72f12578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72f8e578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72fe7578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72ffc078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72f04578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72f02578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71a11578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71ade078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71af6578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71b64578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71baa078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71b9f578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6f036078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71b7b078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71c5c578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71b73078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71c7e078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71c75078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71cba578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71d1e078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71d3c078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71ce8578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71db9578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71dba078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71dac078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71f0d078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6f389078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71f54578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71f83438 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71f9d078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71f9b578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71f97578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71fae078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71fdb038 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6ecd8578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6e95a078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e720c1578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72124578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7213c578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7213b078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6ec27578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7218c078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7218a578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e721e0578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e721e7578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73a2e578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73a5e078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73a4f578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e721f3078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71e0e078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71e2d578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71e24078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71eb4378 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73b9d578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73c18078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73c25078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6f041078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73c7f578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6f040578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73c7a578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73c78078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71e8e578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71e88078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73c76078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73c74078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e71e86578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73c6f078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6ef6c078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73d02078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73d33578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73d30578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73d26078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73d91078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73d8d578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73d86078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73d80078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73d7e078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73db2078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73de6078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73de4078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73dda578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73df2078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73e07078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73f75578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74070578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7409e078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e740db078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74111078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73f0a578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73f00578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7313a578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e68f9a078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e730ce578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e733a0078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7343f578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6edf4078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73729078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7371f578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e73b2b078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7335b078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6e725578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74a2c078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74a2f078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7377f378 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74bd0578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74bd8078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7220c078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72206578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72201078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e722a3578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72318078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72314578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72333578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72266578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72358078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72340078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74d5b578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74d59578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74d933f8 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74d90078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74d86078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74de2578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74dfd578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e751d7078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e741b3578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7520f578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e75366078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e75986078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7595a578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e759fb078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7585b0f8 ------------------                      Error: Cannot acquire process AS
-0xffffad0e75a86078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e758d8078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e75d7c078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6b74e078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e75f97078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e75ffc578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e760a1578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e76164078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7620d578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7625c578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e752e3078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e72ef8578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e763d2578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7655f578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e755ff578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e755a9578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e76555578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e75420578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e75675078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7570f078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e756cb078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6e9ef578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e69a53078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e757d2078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6db50078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6dc2b578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e75701578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6ed44578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e69463078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74d8b078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e75750078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e765160f8 ------------------                      Error: Cannot acquire process AS
-0xffffad0e764e81f8 ------------------                      Error: Cannot acquire process AS
-0xffffad0e694ce078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6e834078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6ead3078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e694c3278 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6dc82578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e69f7f078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e754ce078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6a8a3078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6eaaa078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6ef21078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6dc7a078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6f1c9078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e75f8c078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6f29a078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6f19b078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6fedc078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e756a1078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7548a578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e69687078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e69681078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e756b5578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7458f078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7454b078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7566d078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e74476578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e69fa5578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7467f078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e747a1078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e745af078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e743d0078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e7652a078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e747cc078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e69ed9578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e6a87f578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e69700078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e77208078 ------------------                      Error: Cannot acquire process AS
-0xffffad0e75be9578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e77400578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e701ee578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e748b9578 ------------------                      Error: Cannot acquire process AS
-0xffffad0e77d370f8 ------------------                      Error: Cannot acquire process AS
-0xffffad0e772fd578 ------------------                      Error: Cannot acquire process AS
+
+
+9) modscan
+
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 modscan
 Volatility Foundation Volatility Framework 2.6
 Offset(P)          Name                 Base                             Size File
@@ -8146,6 +7957,9 @@ Offset(P)          Name                 Base                             Size Fi
 0x0000ad0e7728ca20 uaspstor.sys         0xfffff80d7d920000            0x18000 \SystemRoot\System32\drivers\uaspstor.sys
 0x0000f80187500141                      0x001bb057e8d23308         0x48cccccc 
 0x0000f8018793892c                      0x008883c748010000         0x5c8b481e 
+
+10) modules
+
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 modules
 Volatility Foundation Volatility Framework 2.6
 Offset(V)          Name                 Base                             Size File
@@ -8353,16 +8167,21 @@ Offset(V)          Name                 Base                             Size Fi
 0xffffad0e7728ca20 uaspstor.sys         0xfffff80d7d920000            0x18000 \SystemRoot\System32\drivers\uaspstor.sys
 0xffffad0e75b7f8d0 ad_driver.sys        0xfffff80185dd0000             0x9000 \??\C:\Users\oluwa\AppData\Local\Temp\ad_driver.sys
 0xffffad0e75a3f010 MSKSSRV.sys          0xfffff80d7d960000            0x10000 \SystemRoot\System32\drivers\MSKSSRV.sys
+
+11) filescan
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 filescan
 Volatility Foundation Volatility Framework 2.6
 Offset(P)            #Ptr   #Hnd Access Name
 ------------------ ------ ------ ------ ----
+
+12) connections (not working for Windows 10)
+
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 connections
 Volatility Foundation Volatility Framework 2.6
 ERROR   : volatility.debug    : This command does not support the profile Win10x64
-root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64_10586 connections
-Volatility Foundation Volatility Framework 2.6
-ERROR   : volatility.debug    : This command does not support the profile Win10x64_10586
+
+13) netscan
+
 root@kali:~# volatility -f /media/root/SHAD/memdump.mem --profile=Win10x64 netscan
 Volatility Foundation Volatility Framework 2.6
 Offset(P)          Proto    Local Address                  Foreign Address      State            Pid      Owner          Created
